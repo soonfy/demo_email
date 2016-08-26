@@ -10,24 +10,26 @@ var Email = require('../app/controllers/email')
 module.exports = function(app) {
 
     // index
-    app.get('/', Index.getIndex)
+    app.get('/', Index.index)
     app.post('/article/add', Index.add)
 
     //article
     app.get('/article/list', Article.list)
-    // app.get('/article/insert', Article.insert)
-    // app.post('/article/insert', Article.insert)
-    // app.get('/article/update', Article.update)
-    // app.post('/article/update', Article.update)
+    // app.get('/article/search', Article.search)
+    // app.get('/article/insert', Article.getInsert)
+    // app.post('/article/insert', Article.postInsert)
+    // app.get('/article/update', Article.getUpdate)
+    // app.post('/article/update', Article.postUpdate)
     // app.delete('/article/list', Article.del)
 
 
     // //email
     // app.get('/email/list', Email.list)
-    // app.get('/email/insert', Email.insert)
-    // app.post('/email/insert', Email.insert)
-    // app.get('/email/update', Email.update)
-    // app.post('/email/update', Email.update)
+    // app.get('/email/search', Email.search)
+    // app.get('/email/insert', Email.getInsert)
+    // app.post('/email/insert', Email.postInsert)
+    // app.get('/email/update', Email.getUpdate)
+    // app.post('/email/update', Email.postUpdate)
     // app.delete('/email/list', Email.del)
 
 

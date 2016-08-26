@@ -27,13 +27,17 @@ block content
                             td
                                 label.checkbox
                                     input(type="checkbox" name="subBox")
-                            td #{item.title}
+                            td(title="#{item.title}") #{item.title}
                             td(title="#{item.content}") #{item.content}
-                            td #{item.attachment}
+                            td(title="#{item.attachment}") #{item.attachment}
+                            td #{item.article_count}
                             td.op
-                                .btn.btn-primary.btn-sm.send 发送
-                                .btn.btn-primary.btn-sm.update(data-id="#{item._id}" data-title="#{item.title}" data-url="#{item.url}") 修改
-                                .btn.btn-danger.btn-sm.del(data-id="#{item._id}") 删除
+                                if item.status === 0
+                                    .btn.btn-primary.btn-sm.send 发送
+                                    .btn.btn-primary.btn-sm.update(data-id="#{item._id}" data-title="#{item.title}" data-url="#{item.url}") 修改
+                                    .btn.btn-danger.btn-sm.del(data-id="#{item._id}") 删除
+                                else
+                                    .btn.btn-primary.btn-sm.pause 暂停
                     if articles.length >= 0
                         tr
                             td

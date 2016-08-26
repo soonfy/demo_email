@@ -8,28 +8,37 @@ var fs = require('fs')
 var Email = require('../models/email')
 var Article = require('../models/article')
 
-exports.getIndex = function (req, res) {
+
+/**
+ * get index
+ */
+exports.index = function (req, res) {
 	res.render('index', {
 		title: '首页',
 		message: 'page'
 	})
 }
 
+/**
+ * add article
+ */
 exports.add = function async(req, res) {
-	console.log(req.body)
-	console.log(req.files)
-	let {title, content, attachmentId} = req.body
-	let attachment = req.files[0].path
-	// await Article.find({})
-	let _article = new Article({
-		title: title,
-		content: content,
-		attachmentId: attachmentId,
-		attachment: attachment,
-		createdAt: Date.now(),
-		updatedAt: Date.now(),
-		status: 0
-	})
+	if(req.files[0]){
+		let {title, content, attachmentId} = req.body
+		console.log(req.files)
+		let attachment = req.files[0].filename
+		// await Article.find({})
+		let _article = new Article({
+			title: title,
+			content: content,
+			attachmentId: attachmentId,
+			attachment: attachment,
+			createdAt: Date.now(),
+			updatedAt: Date.now(),
+			status: 0
+		})
+		_article.save()
+	}
 	res.redirect('/')
 }
 
