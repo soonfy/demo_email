@@ -3,10 +3,11 @@ var Schema = mongoose.Schema
 var ObjectId = Schema.Types.ObjectId
 
 var EmailSchema = new Schema({
-    title: String,
-    url: String,
-    phone: String,
-    category: String,
+    _id: {
+			type: String,
+			index: true
+		},
+    name: String,
     createdAt: Date
 })
 

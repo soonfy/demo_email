@@ -1,6 +1,4 @@
 var Email = require('../models/email')
-var request = require('request')
-var cheerio = require('cheerio')
 var async = require('async')
 
 exports.add = function(req, res){
@@ -37,7 +35,7 @@ exports.search = function(req, res) {
 								}
 
 								res.render('emaillist', {
-										title: '资源列表页',
+										title: '邮件列表',
 										emails: emails
 								})
 						})
@@ -49,7 +47,7 @@ exports.search = function(req, res) {
 								}
 
 								res.render('emaillist', {
-										title: '资源列表页',
+										title: '邮件列表',
 										emails: emails
 								})
 						})
@@ -61,7 +59,7 @@ exports.search = function(req, res) {
 								}
 
 								res.render('emaillist', {
-										title: '资源列表页',
+										title: '邮件列表',
 										emails: emails
 								})
 						})
@@ -76,7 +74,7 @@ exports.list = function(req, res) {
 						}
 						
 						res.render('emaillist', {
-								title: '资源列表页',
+								title: '邮件列表',
 								emails: emails
 						})
 				})

@@ -92,3 +92,7 @@ form.index{
 .pause{
     margin: 10px;
 }
+
+span.message{
+    float: right;
+}

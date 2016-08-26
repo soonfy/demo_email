@@ -1,0 +1,51 @@
+extends ../layout
+
+block content
+    .container
+        .row.col-xs-12
+            form.form-horizontal(method="get", action="/article/search")
+                .form-group
+                    .col-xs-2
+                    .col-xs-5
+                        input.form-control.resource1(type="text" name="title" value="" placeholder="请输入杂志标题")
+                    .col-xs-4
+                        button.btn.btn-primary.align(type="submit") 查找
+        .row.col-xs-12
+            table.table.table-hover.table-border.list.track
+                thead
+                    tr
+                        th 
+                        th 杂志标题
+                        th 杂志内容
+                        th 附件路径
+                        th 杂志发送状态
+                        th 操作
+                tbody
+                    each item in articles
+                        tr(class="item-id-#{item._id}")
+                            input(type="hidden" name="url" value=item.url)
+                            td
+                                label.checkbox
+                                    input(type="checkbox" name="subBox")
+                            td #{item.title}
+                            td(title="#{item.content}") #{item.content}
+                            td #{item.attachment}
+                            td.op
+                                .btn.btn-primary.btn-sm.send 发送
+                                .btn.btn-primary.btn-sm.update(data-id="#{item._id}" data-title="#{item.title}" data-url="#{item.url}") 修改
+                                .btn.btn-danger.btn-sm.del(data-id="#{item._id}") 删除
+                    if articles.length >= 0
+                        tr
+                            td
+                                label.checkbox.all 
+                                    input(type="checkbox") 
+                            td 
+                            td
+                            td
+                            td
+                            td.op
+                                .btn.btn-primary.btn-sm.send 发送
+                                .btn.btn-primary.btn-sm.update 修改
+                                .btn.btn-danger.btn-sm.del 删除
+    script(src="/js/article.js")
+    script(src="/js/export.js")
