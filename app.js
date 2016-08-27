@@ -10,8 +10,8 @@ var bodyParser = require('body-parser');
 var multer = require('multer')
 var fs = require('fs')
 
-// var dburl = 'mongodb://localhost/email'
-var dburl = 'mongodb://soonfy:163@localhost:27017/email'
+var dburl = 'mongodb://localhost/email'
+// var dburl = 'mongodb://soonfy:163@localhost:27017/email'
 
 mongoose.connect(dburl)
 
