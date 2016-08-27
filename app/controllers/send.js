@@ -130,6 +130,7 @@ let watcher = function (num) {
   rule.second = times
   let timer = schedule.scheduleJob(rule, function () {
     console.log('=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>')
+    console.log(Date.now())
     console.log('watching...')
     console.log(trigger)  //trigger不等于0就是出错了。
     if(trigger === 0){
