@@ -4,7 +4,7 @@ var logger = require('morgan');
 var mongoose = require('mongoose')
 var cookieParser = require('cookie-parser')
 var port = 3041
-var hostname = '127.0.0.1'
+// var hostname = '127.0.0.1'
 var app = express()
 var bodyParser = require('body-parser');
 var multer = require('multer')
@@ -56,6 +56,6 @@ app.use(upload)
 
 require('./config/routes')(app)
 
-app.listen(port, hostname)
+app.listen(port)
 
-console.log('服务器开始运行 http://' + hostname + ':' + port);
+console.log('服务器开始运行 '+ port);
