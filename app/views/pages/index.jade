@@ -2,26 +2,26 @@ extends ../layout
 
 block content
   .container
-        .row.col-xs-12
-            label.index 添加杂志
-            form.form-horizontal.index(method="post", action="/article/add" enctype="multipart/form-data")
-                .form-group                        
-                    .col-xs-6
-                        input.form-control.resource1(type="text" name="title" value="" placeholder="请输入主题")
-                    .col-xs-10
-                        textarea.form-control.resource2(name="content" rows="10" cols="20"  value="" placeholder="请输入邮件内容")
-                    .col-xs-3
-                        input.form-control.resource1(type="text" name="attachmentId" value=Date.now() placeholder="请输入邮件内容")
-                    .col-xs-3
-                        input.form-control.resource3(type="file" name="file" value="")
-                    .col-xs-2
-                        button.btn.btn-primary.resource4.add(type="submit") 添加
+    .row.col-xs-12
+      label.index 添加杂志
+      form.form-horizontal.index(method="post", action="/article/insert" enctype="multipart/form-data")
+        .form-group                        
+          .col-xs-6
+            input.form-control(type="text" name="title" value="" placeholder="请输入主题")
+          .col-xs-3
+            input.form-control.hide(type="text" name="attachmentId" value=Date.now())
+          .col-xs-10
+            textarea.form-control(name="content" rows="10" cols="20"  placeholder="请输入邮件内容")
+          .col-xs-3
+            input.form-control(type="file" name="file")
+          .col-xs-2
+            button.btn.btn-primary(type="submit") 添加
   .container
-        .row.col-xs-12
-            label.index 上传客户列表
-            form.form-horizontal.index(method="post", action="/email/upload" enctype="multipart/form-data")
-                .form-group
-                    .col-xs-3
-                        input.form-control.resource7(type="file" name="file" value="")
-                    .col-xs-2
-                        button.btn.btn-primary.resource8.upload(type="submit") 上传
+    .row.col-xs-12
+      label.index 上传客户列表
+      form.form-horizontal.index(method="post", action="/email/upload" enctype="multipart/form-data")
+        .form-group
+          .col-xs-3
+            input.form-control(type="file" name="file")
+          .col-xs-2
+            button.btn.btn-primary(type="submit") 上传

@@ -1,53 +1,37 @@
 extends ../layout
 
 block content
-    .container
-        .row.col-xs-12
-            form.form-horizontal(method="get", action="/email/search")
-                .form-group                        
-                    .col-xs-3
-                        input.form-control.resource1(type="text" name="title" value="" placeholder="请输入名称")
-                    .col-xs-5
-                        input.form-control.resource2(type="email" name="url" value="" placeholder="请输入邮件地址")
-                    .col-xs-4
-                        .btn.btn-primary.add-track.align 添加
-                        button.btn.btn-primary.align(type="submit") 查找
-                        .btn.btn-primary.export.align 导出
-        .row.col-xs-12
-            table.table.table-hover.table-border.list.track
-                thead
-                    tr
-                        th 
-                        th 姓名
-                        th 邮件地址
-                        th 手机号
-                        th 分组
-                        th 操作
-                tbody
-                    each item in emails
-                        tr(class="item-id-#{item._id}")
-                            input(type="hidden" name="url" value=item.url)
-                            td
-                                label.checkbox
-                                    input(type="checkbox" name="subBox")
-                            td #{item.title}
-                            td #{item.url}
-                            td #{item.phone}
-                            td #{item.category}
-                            td.op
-                                .btn.btn-primary.btn-sm.update(data-id="#{item._id}" data-title="#{item.title}" data-url="#{item.url}") 修改
-                                .btn.btn-danger.btn-sm.del(data-id="#{item._id}") 删除
-                    if emails.length > 0
-                        tr
-                            td
-                                label.checkbox.all 
-                                    input(type="checkbox") 
-                            td 
-                            td
-                            td
-                            td
-                            td.op
-                                .btn.btn-primary.btn-sm.update 修改
-                                .btn.btn-danger.btn-sm.del 删除
-    script(src="/js/email.js")
-    script(src="/js/export.js")
+	.container
+		.row.col-xs-12
+			form.form-horizontal(method="get", action="/email/search")
+				.form-group
+					.col-xs-2
+					.col-xs-5
+						input.form-control(type="email" name="address" value="" placeholder="请输入邮件地址")
+					.col-xs-4
+						.btn.btn-info
+							a(href="/email/insert") 添加
+						button.btn.btn-primary(type="submit") 查找
+		.row.col-xs-12
+			table.table.table-hover.table-border.list.track
+				thead
+					tr
+						th 
+						th 姓名
+						th 地址
+						th 操作
+				tbody
+					each item in emails
+						tr(class="item-id-#{item._id}")
+							input(type="hidden" name="url" value=item.url)
+							td
+								label.checkbox
+									input(type="checkbox" name="subBox")
+							td #{item.name}
+							td #{item.address}
+							td.op
+								.btn.btn-info.btn-sm
+									a(href="/email/update?_id=" + "#{item._id}" + "&name=" + "#{item.name}" + "&address=" + "#{item.address}") 修改
+								.btn.btn-danger.btn-sm.del(data-id="#{item._id}") 删除
+	script(src="/js/email.js")
+	script(src="/js/export.js")

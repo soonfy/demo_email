@@ -37,12 +37,14 @@ if ('development' === app.get('env')) {
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-		let filepath = path.join(__dirname, '/app/controllers/articles/', req.body.attachmentId)
-		// if(fs.statSync(filepath).isDirectory()){
-		// 	console.log('directory exits.')
-		// }else{
+		let attachmentId = req.body.attachmentId
+		let filepath
+		if(attachmentId){
+			filepath = path.join(__dirname, '/app/controllers/articles/', attachmentId)
 			fs.mkdirSync(filepath)
-		// }
+		}else{
+			filepath = path.join(__dirname, '/app/controllers/emails/')
+		}
     cb(null, filepath)
   },
   filename: function (req, file, cb) {

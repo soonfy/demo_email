@@ -8,7 +8,7 @@ var AEMapSchema = new Schema({
 	sendTime: Date
 })
 
-EmailSchema.statics = {
+AEMapSchema.statics = {
 	count: function (title, cb) {
 		return this
 			.find({title: title })
@@ -16,9 +16,9 @@ EmailSchema.statics = {
 			.exec(cb)
 	},
 	findByTitle: function (title, cb) {
-	return this
-		.findOne({ title: title })
-		.exec(cb)
+		return this
+			.findOne({ title: title })
+			.exec(cb)
 	},
 	findByUrl: function (q, cb) {
 		if (q) {

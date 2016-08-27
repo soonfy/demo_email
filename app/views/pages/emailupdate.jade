@@ -1,0 +1,18 @@
+extends ../layout
+
+block content
+	.container
+		.row.col-xs-12
+			form.form-horizontal.index(method="post", action="/email/update")
+				.form-group
+					.col-xs-6
+						label 姓名
+						input.form-control.txt(type="text" name="name" value="#{email.name}")
+					.col-xs-10
+						input.form-control.hide(type="text" name="_id" value="#{email._id}")
+					.col-xs-6
+						label 邮件地址
+						input.form-control.txt(type="email" name="address" value="#{email.address}")
+					.col-xs-12
+					.col-xs-2
+						button.btn.btn-primary(type="submit") 修改

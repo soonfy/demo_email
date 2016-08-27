@@ -3,29 +3,17 @@ var Schema = mongoose.Schema
 var ObjectId = Schema.Types.ObjectId
 
 var ArticleSchema = new Schema({
-	title: String,
-	content: String,
-	attachmentId: Number,
-	attachment: String,
+	title: {
+		type: String,							//标题
+		index: true
+	},
+	content: String,						//内容
+	attachmentId: Number,				//附件id，文件夹名称
+	filename: String,						//附件名称
+	path: String,								//附件路径
 	createdAt: Date,
 	updatedAt: Date,
-	status: Number // 0, closed; 1. sending; 2, deleted
+	status: Number // 0, closed; 1. sending; 2, deleted	//杂志状态
 })
-
-ArticleSchema.statics = {
-	findByTitle: function (title, cb) {
-		if (title) {
-			return this
-				.find({ 'title': title, status: {'$in': [0, 1]} })
-				.sort({ 'title': 1 })
-				.exec(cb)
-		} else {
-			return this
-				.find({status: {'$in': [0, 1]}})
-				.sort({ 'title': 1 })
-				.exec(cb)
-		}
-	}
-}
 
 module.exports = ArticleSchema
