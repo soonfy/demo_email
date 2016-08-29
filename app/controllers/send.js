@@ -4,7 +4,7 @@ let AEmap = require('../models/article_email')
 let async = require('async')
 let nodemailer = require('nodemailer')
 
-// let schedule = require('node-schedule')
+let schedule = require('node-schedule')
 
 let trigger = 0
 
@@ -125,9 +125,20 @@ let send = function (num) {
         if (error) {
           trigger--
           console.log(error)
-          console.log('=> => => => => => => => =>')
-          console.log('sending email...')
-          send(1)
+          if(error.responseCode == 552){
+            console.log('=> => => => => => => => =>')
+            console.log('email quota exceeded...')
+            let rule = new schedule.RecurrenceRule()
+            let timer = schedule.scheduleJob('0 0 1 */1 * *', function () {
+              console.log('email will send tomorrow 1 am...')
+              send(1)
+              timer.cancel()
+            })
+          }else{
+            console.log('=> => => => => => => => =>')
+            console.log('sending email...')
+            send(1)
+          }
         }else{
           let articleId = article._id
           let emailId = email._id
@@ -171,7 +182,8 @@ let send = function (num) {
 //   })
 // }
 
-// 每次发送邮件数量
+// 每次发送邮件数量（老版本）
 // watcher(1)
 
+//发送邮件（新）
 send(1)

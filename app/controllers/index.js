@@ -1,3 +1,5 @@
+require('babel-polyfill')
+
 var nodemailer = require('nodemailer')
 var path = require('path')
 
@@ -22,7 +24,7 @@ exports.index = function (req, res) {
 /**
  * insert article
  */
-exports.insert = function async(req, res) {
+exports.insert = function (req, res) {
 	if(req.files[0]){
 		let {title, content, attachmentId} = req.body
 		let {filename, path} = req.files[0]
@@ -44,35 +46,43 @@ exports.insert = function async(req, res) {
 //upload emails
 exports.upload = function (req, res) {
 	if (req.files[0]) {
-		var filepath = req.files[0].path
-		fs.readFile(filepath, 'utf-8', function (err, data) {
-			let emails = data.indexOf('\r\n') > -1 ? data.split('\r\n') : data.split('\n')
-			emails.map(function (email, index, arr) {
-				var metas = email.split(',')
-				var name = metas[0]
-				var address = metas[1]
-				if (address && name) {
-					Email.findOne({ address: address }, {}, function (err, result) {
-						if (result === null) {
-							var _email = new Email({
-								name: name,
-								address: address,
-								createdAt: Date.now(),
-								updatedAt: Date.now()
-							})
-							_email.save(function (err) {
-								if (err) {
-									console.log(err)
-								}
-							})
-						}
+		let filepath = req.files[0].path
+		let data = fs.readFileSync(filepath, 'utf-8') 
+		let emails = data.indexOf('\r\n') > -1 ? data.split('\r\n') : data.split('\n')
+		// console.log(emails.length)
+		let results = []
+		let adds = []
+		emails.map(function(data){
+			let metas = data.split(',')
+			if(metas[1]){
+				let name = metas[0].replace(/^\s+|\s+$/g, '')
+				let address = metas[1].replace(/^\s+|\s+$/, '').replace(/[;"；]/g, '').replace(/-/g, '_')
+				if(!adds.includes(address)){
+					adds.push(address)
+					let obj = {
+						name: name,
+						address: address
+					}
+					results.push(obj)
+				}
+			}
+			
+		})
+		for(let email of results){
+			Email.findOne({address: email.address}).exec(function (data) {
+				if (data === null) {
+					let _email = new Email({
+						name: email.name,
+						address: email.address,
+						createdAt: Date.now(),
+						updatedAt: Date.now()
+					})
+					_email.save().then(function (_email) {
+						// console.log(_email)
 					})
 				}
-
 			})
-		})
-
+		}
 	}
 	res.redirect('/')
-
 }

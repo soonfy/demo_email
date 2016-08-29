@@ -12,6 +12,7 @@ var fs = require('fs')
 
 var dburl = 'mongodb://localhost/email'
 // var dburl = 'mongodb://soonfy:163@localhost:27017/email'
+// mongoose.Promise = global.Promise	//mongoose use promise
 
 mongoose.connect(dburl)
 
@@ -32,7 +33,7 @@ if ('development' === app.get('env')) {
 	app.set('showStackError', true)
 	app.use(logger('dev'));
 	app.locals.pretty = true
-	mongoose.set('debug', true)
+	// mongoose.set('debug', true)
 }
 
 var storage = multer.diskStorage({
