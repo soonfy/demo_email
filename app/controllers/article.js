@@ -54,7 +54,7 @@ exports.list = function (req, res) {
 		}
 	], function (err, results) {
 		if (!err) {
-			console.log(results)
+			// console.log(results)
 			let articles = results[0]
 			let maps = results[1]
 			let len = results[2]
@@ -68,8 +68,8 @@ exports.list = function (req, res) {
 				})
 				return article
 			})
-			console.log(article_result)
-			console.log(articles)
+			// console.log(article_result)
+			// console.log(articles)
 			res.render('articlelist', {
 				title: '杂志列表',
 				articles: articles
@@ -128,7 +128,7 @@ exports.search = function (req, res) {
 		}
 	], function (err, results) {
 		if (!err) {
-			console.log(results)
+			// console.log(results)
 			let articles = results[0]
 			let maps = results[1]
 			let len = results[2]
@@ -142,8 +142,8 @@ exports.search = function (req, res) {
 				})
 				return article
 			})
-			console.log(article_result)
-			console.log(articles)
+			// console.log(article_result)
+			// console.log(articles)
 			res.render('articlelist', {
 				title: '杂志列表',
 				articles: articles
@@ -170,7 +170,6 @@ exports.getInsert = function (req, res) {
  * get update article
  */
 exports.getUpdate = function (req, res) {
-	console.log(req.query)
 	res.render('articleupdate', {
 		title: '修改杂志',
 		article: req.query,

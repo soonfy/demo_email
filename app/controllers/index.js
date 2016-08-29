@@ -25,7 +25,6 @@ exports.index = function (req, res) {
 exports.insert = function async(req, res) {
 	if(req.files[0]){
 		let {title, content, attachmentId} = req.body
-		console.log(req.files)
 		let {filename, path} = req.files[0]
 		let _article = new Article({
 			title: title,

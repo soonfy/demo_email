@@ -9,19 +9,26 @@ let nodemailer = require('nodemailer')
 let trigger = 0
 
 let send = function (num) {
-
+  console.log('now trigger is ', trigger)
   async.waterfall([
     function (cb) {
       Article.findOne({status: 1}, {}, function (err, article) {
         if(err){
           trigger = 0
           console.log(err)
-        }
-				if (article !== null) {
-					cb(null, article)
-				}else{
-          trigger = 0
-          console.log('articles all sended.');
+          console.log('=> => => => => => => => =>')
+          console.log('sending email...')
+          send(num)
+        }else {
+          if (article !== null) {
+            cb(null, article)
+          }else{
+            trigger = 0
+            console.log('articles all sended.');
+            console.log('=> => => => => => => => =>')
+            console.log('sending email...')
+            send(num)
+          }
         }
 			})
     },
@@ -30,13 +37,16 @@ let send = function (num) {
         if(err){
           trigger = 0
           console.log(err)
+          console.log('=> => => => => => => => =>')
+          console.log('sending email...')
+          send(num)
+        }else{
+          let emailIds = []
+          maps.map(function (data) {
+            emailIds.push(data.emailId)
+          })
+          cb(null, article, emailIds)
         }
-        let emailIds = []
-        maps.map(function (data) {
-          emailIds.push(data.emailId)
-        })
-        
-        cb(null, article, emailIds)
 			})
     },
     function (article, emailIds, cb) {
@@ -44,28 +54,41 @@ let send = function (num) {
         if(err){
           trigger = 0
           console.log(err)
-        }
-				if (emails.length > 0) {
-					cb(null, article, emails)
-				}else{
-          trigger = 0
-          Article.findOne({_id: article._id}, {}, function (err, article) {
-            if (err) {
-              trigger = 0
-              console.log(err)
-            }
-            if(article === null){
-
-            }else{
-              article.status = 0
-              article.save(function (err) {
-                if(err){
-                  trigger = 0
-                  console.log(err)
+          console.log('=> => => => => => => => =>')
+          console.log('sending email...')
+          send(num)
+        }else {
+          if (emails.length > 0) {
+            cb(null, article, emails)
+          }else{
+            Article.findOne({_id: article._id}, {}, function (err, article) {
+              if (err) {
+                trigger = 0
+                console.log(err)
+                console.log('=> => => => => => => => =>')
+                console.log('sending email...')
+                send(num)
+              }else {
+                if(article === null){
+                  console.log('exits error.')
+                  console.log('=> => => => => => => => =>')
+                  console.log('sending email...')
+                  send(num)
+                }else{
+                  article.status = 0
+                  article.save(function (err) {
+                    if(err){
+                      console.log(err)
+                    }
+                    trigger = 0
+                    console.log('=> => => => => => => => =>')
+                    console.log('sending email...')
+                    send(num)
+                  })
                 }
-              })
-            }
-          })
+              }
+            })
+          }
         }
 			})
     }
@@ -81,11 +104,9 @@ let send = function (num) {
           "user": 'newsletter@netranking.com.cn', // user name
           "pass": 'Abc123456789'         // password
         }
-      });
-
+      })
       let {title, content, filename, path} = article
       let address = email.address
-
       // setup e-mail data with unicode symbols
       let mailOptions = {
         from: '"newsletter" <newsletter@netranking.com.cn>', // sender address
@@ -99,26 +120,32 @@ let send = function (num) {
         }]
       }
       // console.log(mailOptions)
-
       //send mail with defined transport object
-      //
       transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
-          trigger = 0
-          return console.log(error)
+          trigger--
+          console.log(error)
+          console.log('=> => => => => => => => =>')
+          console.log('sending email...')
+          send(1)
+        }else{
+          let articleId = article._id
+          let emailId = email._id
+          let _map = new AEmap({
+            articleId: articleId,
+            emailId: emailId,
+            sendTime: Date.now()
+          })
+          _map.save(function () {
+            if(err){
+              console.log(err)
+            }
+            trigger--
+            console.log('=> => => => => => => => =>')
+            console.log('sending email...')
+            send(1)
+          })
         }
-
-        let articleId = article._id
-        let emailId = email._id
-        let _map = new AEmap({
-          articleId: articleId,
-          emailId: emailId,
-          sendTime: Date.now()
-        })
-        _map.save(function () {
-          
-        })
-        trigger--
       })
     })
   })
@@ -147,10 +174,4 @@ let send = function (num) {
 // 每次发送邮件数量
 // watcher(1)
 
-while(trigger === 0){
-  console.log('=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>')
-  console.log(new Date())
-  console.log('watching...')
-  send(1)
-  console.log('email sending...')
-}
+send(1)

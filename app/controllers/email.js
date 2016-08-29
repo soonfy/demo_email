@@ -62,8 +62,6 @@ exports.getInsert = function (req, res) {
 
 exports.postInsert = function (req, res) {
 	let {address, name} = req.body
-	console.log(address)
-	console.log(name)
 	if(address){
 		Email.findOne({address: address}, {}, function (err, email) {
 			if (email === null) {
@@ -95,14 +93,10 @@ exports.getUpdate = function (req, res) {
 
 exports.postUpdate = function (req, res) {
 	let {_id, address, name} = req.body
-	console.log(_id)
-	console.log(address)
-	console.log(name)
 	if(address){
 		Email.findOne({_id: _id}, {}, function (err, email) {
-			console.log(email);
 			if (email === null) {
-
+				console.log('error')
 			}else{
 				email.name = name
 				email.address = address
