@@ -86,8 +86,8 @@ exports.upload = function (req, res) {
 			
 		})
 		for(let email of results){
-			Email.findOne({address: email.address}).exec(function (data) {
-				if (data === null) {
+			Email.findOne({address: email.address}, {}, function (err, data) {
+				if (!err && data === null) {
 					let _email = new Email({
 						name: email.name,
 						address: email.address,
