@@ -55,7 +55,12 @@ exports.insert = function (req, res) {
 			updatedAt: Date.now(),
 			status: 0
 		})
-		_article.save()
+		_article.save(function (err) {
+			if(err){
+				console.log(err)
+			}
+			console.log('article insert...')
+		})
 	}
 	res.redirect('/')
 }
@@ -94,8 +99,11 @@ exports.upload = function (req, res) {
 						createdAt: Date.now(),
 						updatedAt: Date.now()
 					})
-					_email.save().then(function (_email) {
-						// console.log(_email)
+					_email.save(function (err) {
+						if(err){
+							console.log(err)
+						}
+						console.log('email list insert...')
 					})
 				}
 			})

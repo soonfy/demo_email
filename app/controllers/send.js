@@ -6,7 +6,7 @@ let nodemailer = require('nodemailer')
 
 let schedule = require('node-schedule')
 
-let trigger = 0
+let trigger
 
 let send = function (num) {
   console.log('now trigger is ', trigger)
@@ -17,17 +17,17 @@ let send = function (num) {
           trigger = 0
           console.log(err)
           console.log('=> => => => => => => => =>')
-          console.log('sending email...')
+          console.log('20 sending email...')
           send(num)
         }else {
           if (article !== null) {
             cb(null, article)
           }else{
-            trigger = 0
-            console.log('articles all sended.');
+            trigger = -1
             console.log('=> => => => => => => => =>')
-            console.log('sending email...')
-            send(num)
+            console.log('now trigger is ', trigger)
+            console.log('29 sending email...')
+            console.log('articles all sended.')
           }
         }
 			})
@@ -38,7 +38,7 @@ let send = function (num) {
           trigger = 0
           console.log(err)
           console.log('=> => => => => => => => =>')
-          console.log('sending email...')
+          console.log('40 sending email...')
           send(num)
         }else{
           let emailIds = []
@@ -55,7 +55,7 @@ let send = function (num) {
           trigger = 0
           console.log(err)
           console.log('=> => => => => => => => =>')
-          console.log('sending email...')
+          console.log('57 sending email...')
           send(num)
         }else {
           if (emails.length > 0) {
@@ -66,13 +66,13 @@ let send = function (num) {
                 trigger = 0
                 console.log(err)
                 console.log('=> => => => => => => => =>')
-                console.log('sending email...')
+                console.log('68 sending email...')
                 send(num)
               }else {
                 if(article === null){
                   console.log('exits error.')
                   console.log('=> => => => => => => => =>')
-                  console.log('sending email...')
+                  console.log('74 sending email...')
                   send(num)
                 }else{
                   article.status = 0
@@ -82,7 +82,7 @@ let send = function (num) {
                     }
                     trigger = 0
                     console.log('=> => => => => => => => =>')
-                    console.log('sending email...')
+                    console.log('84 article sended...')
                     send(num)
                   })
                 }
@@ -140,16 +140,16 @@ let send = function (num) {
           console.log(error)
           if(error.responseCode == 552){
             console.log('=> => => => => => => => =>')
-            console.log('email quota exceeded...')
+            console.log('142 email quota exceeded...')
             let rule = new schedule.RecurrenceRule()
             let timer = schedule.scheduleJob('0 0 0 */1 * *', function () {
-              console.log('email will send tomorrow 1 am...')
+              console.log('email will send tomorrow 0 am...')
               send(1)
               timer.cancel()
             })
           }else{
             console.log('=> => => => => => => => =>')
-            console.log('sending email...')
+            console.log('151 sending email...')
             send(1)
           }
         }else{
@@ -166,7 +166,7 @@ let send = function (num) {
             }
             trigger--
             console.log('=> => => => => => => => =>')
-            console.log('sending email...')
+            console.log('168 sending email...')
             send(1)
           })
         }
@@ -200,3 +200,19 @@ let send = function (num) {
 
 //发送邮件（新）
 send(1)
+
+exports.sender = function () {
+  console.log('=> => => => => => => => =>')
+  console.log('205 start send email...')
+  if(trigger === -1){
+    //articles all sended
+    send(1)
+  }else if(trigger >= 0){
+    //articles ending
+    console.log('211 email sending...')
+    console.log('now trigger is ', trigger)
+  }else{
+    console.log('214 error exits.');
+    console.log('now trigger is ', trigger)
+  }
+}

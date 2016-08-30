@@ -2,6 +2,7 @@ let Article = require('../models/article')
 let Email = require('../models/email')
 let AEmap = require('../models/article_email')
 let async = require('async')
+let Send = require('./send')
 
 
 
@@ -199,6 +200,7 @@ exports.postUpdate = function (req, res) {
 				if(err){
 					console.log(err)
 				}
+				console.log('article update...')
 			})
 		}
 	})
@@ -247,13 +249,15 @@ exports.send = function (req, res) {
 
 	Article.findOne({_id: _id}, {}, function (err, article) {
 		if (article === null) {
-
+			console.log('article is wrong...')
 		}else{
 			article.status = 1
 			article.save(function (err) {
 				if(err){
 					console.log(err)
 				}
+				console.log('article send...')
+				Send.sender()
 			})
 		}
 	})
@@ -268,13 +272,14 @@ exports.pause = function (req, res) {
 
 	Article.findOne({_id: _id}, {}, function (err, article) {
 		if (article === null) {
-
+			console.log('article is wrong...')
 		}else{
 			article.status = 0
 			article.save(function (err) {
 				if(err){
 					console.log(err)
 				}
+				console.log('article pause...')
 			})
 		}
 	})

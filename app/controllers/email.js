@@ -1,29 +1,6 @@
 var Email = require('../models/email')
 var async = require('async')
 
-exports.add = function (req, res) {
-	var title = req.query.title,
-		url = req.query.url
-	if (url) {
-		Email.findOne({ url: url }, {}, function (err, email) {
-			if (email === null) {
-				var _email = new Email({
-					title: title,
-					url: url,
-					createdAt: Date.now()
-				})
-				_email.save(function (err) {
-					if (err) {
-						console.log(err)
-					} else {
-
-					}
-				})
-			}
-		})
-	}
-}
-
 exports.search = function (req, res) {
 	var address = req.query.address || null
 	Email
@@ -31,7 +8,6 @@ exports.search = function (req, res) {
 			if (err) {
 				console.log(err);
 			}
-
 			res.render('emaillist', {
 				title: '邮件列表',
 				emails: emails
@@ -45,7 +21,6 @@ exports.list = function (req, res) {
 			if (err) {
 				console.log(err);
 			}
-
 			res.render('emaillist', {
 				title: '邮件列表',
 				emails: emails
@@ -75,11 +50,16 @@ exports.postInsert = function (req, res) {
 					if (err) {
 						console.log(err)
 					}
+					console.log('email insert...')
+					res.redirect('/email/list')
 				})
+			}else{
+				res.redirect('/email/list')
 			}
 		})
+	}else{
+		res.redirect('/email/list')
 	}
-	res.redirect('/email/list')
 }
 
 exports.getUpdate = function (req, res) {
@@ -97,6 +77,7 @@ exports.postUpdate = function (req, res) {
 		Email.findOne({_id: _id}, {}, function (err, email) {
 			if (email === null) {
 				console.log('error')
+				res.redirect('/email/list')
 			}else{
 				email.name = name
 				email.address = address
@@ -105,11 +86,14 @@ exports.postUpdate = function (req, res) {
 					if(err){
 						console.log(err)
 					}
+					console.log('email update...')
+					res.redirect('/email/list')
 				})
 			}
 		})
+	}else{
+		res.redirect('/email/list')
 	}
-	res.redirect('/email/list')
 }
 
 exports.del = function (req, res) {
