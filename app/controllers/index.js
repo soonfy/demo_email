@@ -38,6 +38,23 @@ exports.insert = function (req, res) {
 			updatedAt: Date.now(),
 			status: 0
 		})
+		_article.save(function (err) {
+			if(err){
+				console.log(err)
+			}
+		})
+	}else{
+		let {title, content, attachmentId} = req.body
+		let filename = '没有附件'
+		let _article = new Article({
+			title: title,
+			content: content,
+			attachmentId: attachmentId,
+			filename: filename,
+			createdAt: Date.now(),
+			updatedAt: Date.now(),
+			status: 0
+		})
 		_article.save()
 	}
 	res.redirect('/')

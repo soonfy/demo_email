@@ -1,1 +1,3 @@
 node_modules/
+app/controllers/articles/*/
+app/controllers/emails/*.csv

@@ -107,18 +107,31 @@ let send = function (num) {
       })
       let {title, content, filename, path} = article
       let address = email.address
-      // setup e-mail data with unicode symbols
-      let mailOptions = {
-        from: '"newsletter" <newsletter@netranking.com.cn>', // sender address
-        to: address, // list of receivers
-        subject: title, // Subject line
-        text: content, // plaintext body
-        html: '<b>' + content + '</b>', // html body
-        attachments: [{
-          filename: filename,
-          path: path
-        }]
+      let mailOptions
+
+      if(filename && path){
+        // setup e-mail data with unicode symbols
+        mailOptions = {
+          from: '"newsletter" <newsletter@netranking.com.cn>', // sender address
+          to: address, // list of receivers
+          subject: title, // Subject line
+          text: content, // plaintext body
+          html: '<b>' + content + '</b>', // html body
+          attachments: [{
+            filename: filename,
+            path: path
+          }]
+        }
+      }else{
+        mailOptions = {
+          from: '"newsletter" <newsletter@netranking.com.cn>', // sender address
+          to: address, // list of receivers
+          subject: title, // Subject line
+          text: content, // plaintext body
+          html: '<b>' + content + '</b>' // html body
+        }
       }
+      
       // console.log(mailOptions)
       //send mail with defined transport object
       transporter.sendMail(mailOptions, function (error, info) {
@@ -129,7 +142,7 @@ let send = function (num) {
             console.log('=> => => => => => => => =>')
             console.log('email quota exceeded...')
             let rule = new schedule.RecurrenceRule()
-            let timer = schedule.scheduleJob('0 0 1 */1 * *', function () {
+            let timer = schedule.scheduleJob('0 0 0 */1 * *', function () {
               console.log('email will send tomorrow 1 am...')
               send(1)
               timer.cancel()
