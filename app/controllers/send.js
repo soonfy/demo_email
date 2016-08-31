@@ -9,15 +9,15 @@ let schedule = require('node-schedule')
 let trigger
 
 let send = function (num) {
-  console.log('now trigger is ', trigger)
+  console.log('start sending email, now trigger is ', trigger)
   async.waterfall([
     function (cb) {
       Article.findOne({status: 1}, {}, function (err, article) {
         if(err){
           trigger = 0
           console.log(err)
-          console.log('=> => => => => => => => =>')
-          console.log('20 sending email...')
+          // console.log('=> => => => => => => => =>')
+          // console.log('20 sending email...')
           send(num)
         }else {
           if (article !== null) {
@@ -37,8 +37,8 @@ let send = function (num) {
         if(err){
           trigger = 0
           console.log(err)
-          console.log('=> => => => => => => => =>')
-          console.log('40 sending email...')
+          // console.log('=> => => => => => => => =>')
+          // console.log('40 sending email...')
           send(num)
         }else{
           let emailIds = []
@@ -54,8 +54,8 @@ let send = function (num) {
         if(err){
           trigger = 0
           console.log(err)
-          console.log('=> => => => => => => => =>')
-          console.log('57 sending email...')
+          // console.log('=> => => => => => => => =>')
+          // console.log('57 sending email...')
           send(num)
         }else {
           if (emails.length > 0) {
@@ -65,14 +65,14 @@ let send = function (num) {
               if (err) {
                 trigger = 0
                 console.log(err)
-                console.log('=> => => => => => => => =>')
-                console.log('68 sending email...')
+                // console.log('=> => => => => => => => =>')
+                // console.log('68 sending email...')
                 send(num)
               }else {
                 if(article === null){
-                  console.log('exits error.')
-                  console.log('=> => => => => => => => =>')
-                  console.log('74 sending email...')
+                  // console.log('exits error.')
+                  // console.log('=> => => => => => => => =>')
+                  // console.log('74 sending email...')
                   send(num)
                 }else{
                   article.status = 0
@@ -82,7 +82,7 @@ let send = function (num) {
                     }
                     trigger = 0
                     console.log('=> => => => => => => => =>')
-                    console.log('84 article sended...')
+                    console.log('84 this article sended...')
                     send(num)
                   })
                 }
@@ -131,7 +131,7 @@ let send = function (num) {
           html: '<b>' + content + '</b>' // html body
         }
       }
-      
+
       // console.log(mailOptions)
       //send mail with defined transport object
       transporter.sendMail(mailOptions, function (error, info) {
@@ -148,8 +148,8 @@ let send = function (num) {
               timer.cancel()
             })
           }else{
-            console.log('=> => => => => => => => =>')
-            console.log('151 sending email...')
+            // console.log('=> => => => => => => => =>')
+            // console.log('151 sending email...')
             send(1)
           }
         }else{
@@ -165,8 +165,8 @@ let send = function (num) {
               console.log(err)
             }
             trigger--
-            console.log('=> => => => => => => => =>')
-            console.log('168 sending email...')
+            // console.log('=> => => => => => => => =>')
+            // console.log('168 sending email...')
             send(1)
           })
         }
@@ -202,8 +202,8 @@ let send = function (num) {
 send(1)
 
 exports.sender = function () {
-  console.log('=> => => => => => => => =>')
-  console.log('205 start send email...')
+  // console.log('=> => => => => => => => =>')
+  // console.log('205 start send email...')
   if(trigger === -1){
     //articles all sended
     send(1)
