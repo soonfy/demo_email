@@ -208,7 +208,7 @@ exports.sender = function () {
   // console.log('205 start send email...')
   console.log(trigger)
   console.log(typeof trigger)
-  if(trigger === -1 || trigger === undefined){
+  if(trigger === -1 || (typeof trigger === 'undefined')){
     //articles all sended
     send(1)
   }else if(trigger >= 0){
