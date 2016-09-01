@@ -171,10 +171,15 @@ exports.getInsert = function (req, res) {
  * get update article
  */
 exports.getUpdate = function (req, res) {
-	res.render('articleupdate', {
-		title: '修改杂志',
-		article: req.query,
-		message: ''
+	let _id = req.query._id
+	Article.findOne({_id: _id}, {}, function (err, article) {
+		if(article !== null){
+			res.render('articleupdate', {
+				title: '修改杂志',
+				article: article,
+				message: ''
+			})
+		}
 	})
 }
 

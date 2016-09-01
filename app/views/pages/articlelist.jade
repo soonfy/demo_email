@@ -14,7 +14,7 @@ block content
 			table.table.table-hover.table-border.list.track
 				thead
 					tr
-						th 
+						th
 						th 杂志标题
 						th 杂志内容
 						th 附件名称
@@ -30,7 +30,7 @@ block content
 							td(title="#{item.title}") #{item.title}
 							td(title="#{item.content}") #{item.content}
 							td(title="#{item.filename}") #{item.filename}
-							td 
+							td
 								span #{item.count}
 								span /
 								span #{item.len}
@@ -42,8 +42,8 @@ block content
 									.btn.btn-primary.btn-sm.send(disabled="true" data-id="#{item._id}") 发送
 									.btn.btn-success.btn-sm.pause(data-id="#{item._id}") 暂停
 								.btn.btn-info.btn-sm
-										a(href="/article/update?_id=" + "#{item._id}" + "&title=" + "#{item.title}" + "&content=" + "#{item.content}" + "&filename=" + "#{item.filename}") 修改
+										a(href="/article/update?_id=" + "#{item._id}") 修改
 								.btn.btn-danger.btn-sm.del(data-id="#{item._id}") 删除
-								
+
 	script(src="/js/article.js")
 	script(src="/js/export.js")
