@@ -150,9 +150,12 @@ let send = function (num) {
               timer.cancel()
             })
           }else{
-            // console.log('=> => => => => => => => =>')
-            // console.log('151 sending email...')
-            send(1)
+            console.log('=> => => => => => => => =>')
+            console.log('sending email exits error...')
+            console.log(mailOptions.to)
+            console.log(error.response);
+            console.log('sending email exits error...')
+            // send(1)
           }
         }else{
           let articleId = article._id
