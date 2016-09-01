@@ -107,11 +107,7 @@ let send = function (num) {
       })
       let {title, content, filename, path} = article
       let address = email.address
-      let contents = content.split('\r\n')
-      let html = ''
-      contents.map(function(_cont, ind){
-        html = html + '<p>' + _cont + '</p>'
-      })
+      let html = '<p>' + content.split('\r\n').join('</p><p>') + '</p>'
       let mailOptions
 
       if(filename && path){
