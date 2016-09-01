@@ -107,6 +107,11 @@ let send = function (num) {
       })
       let {title, content, filename, path} = article
       let address = email.address
+      let contents = content.split('\r\n')
+      let html = ''
+      contents.map(function(_cont, ind){
+        html = html + '<p>' + _cont + '</p>'
+      })
       let mailOptions
 
       if(filename && path){
@@ -116,7 +121,7 @@ let send = function (num) {
           to: address, // list of receivers
           subject: title, // Subject line
           text: content, // plaintext body
-          html: '<b>' + content + '</b>', // html body
+          html: html, // html body
           attachments: [{
             filename: filename,
             path: path
@@ -128,7 +133,8 @@ let send = function (num) {
           to: address, // list of receivers
           subject: title, // Subject line
           text: content, // plaintext body
-          html: '<b>' + content + '</b>' // html body
+          html: html // html body
+          // html: content
         }
       }
 
@@ -199,7 +205,7 @@ let send = function (num) {
 // watcher(1)
 
 //发送邮件（新）
-send(1)
+// send(1)
 
 exports.sender = function () {
   // console.log('=> => => => => => => => =>')
