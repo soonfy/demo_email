@@ -125,7 +125,7 @@ let send = function (num) {
         }
       }else{
         mailOptions = {
-          from: '"newsletter" <newsletter@netranking.com.cn>', // sender address
+          from: 'newsletter@netranking.com.cn', // sender address
           to: address, // list of receivers
           subject: title, // Subject line
           text: content, // plaintext body
@@ -134,7 +134,7 @@ let send = function (num) {
         }
       }
 
-      // console.log(mailOptions)
+      console.log(mailOptions)
       //send mail with defined transport object
       transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
