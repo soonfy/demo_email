@@ -210,7 +210,7 @@ let send = function (num) {
 exports.sender = function () {
   // console.log('=> => => => => => => => =>')
   // console.log('205 start send email...')
-  if(trigger === -1){
+  if(trigger === -1 || trigger === undefined){
     //articles all sended
     send(1)
   }else if(trigger >= 0){
