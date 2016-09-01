@@ -125,7 +125,7 @@ let send = function (num) {
         }
       }else{
         mailOptions = {
-          from: 'newsletter@netranking.com.cn', // sender address
+          from: '"newsletter" <newsletter@netranking.com.cn>', // sender address
           to: address, // list of receivers
           subject: title, // Subject line
           text: content, // plaintext body
