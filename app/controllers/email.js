@@ -1,4 +1,5 @@
 var Email = require('../models/email')
+var Map = require('../models/article_email')
 var async = require('async')
 
 exports.search = function (req, res) {
@@ -107,6 +108,13 @@ exports.del = function (req, res) {
 						.remove({ _id: id[i] }, function (err, email) {
 							if (err) {
 								cb('remove email error')
+							}
+							cb(null)
+						})
+					Map
+						.remove({ emailId: id[i] }, function (err, email) {
+							if (err) {
+								cb('remove article_email map error')
 							}
 							cb(null)
 						})
