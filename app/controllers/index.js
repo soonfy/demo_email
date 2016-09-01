@@ -59,7 +59,7 @@ exports.insert = function (req, res) {
 			if(err){
 				console.log(err)
 			}
-			console.log('article insert...')
+			// console.log('article insert...')
 		})
 	}
 	res.redirect('/')
@@ -69,7 +69,7 @@ exports.insert = function (req, res) {
 exports.upload = function (req, res) {
 	if (req.files[0]) {
 		let filepath = req.files[0].path
-		let data = fs.readFileSync(filepath, 'utf-8') 
+		let data = fs.readFileSync(filepath, 'utf-8')
 		let emails = data.indexOf('\r\n') > -1 ? data.split('\r\n') : data.split('\n')
 		// console.log(emails.length)
 		let results = []
@@ -88,7 +88,7 @@ exports.upload = function (req, res) {
 					results.push(obj)
 				}
 			}
-			
+
 		})
 		for(let email of results){
 			Email.findOne({address: email.address}, {}, function (err, data) {

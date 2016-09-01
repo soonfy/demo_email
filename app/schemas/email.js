@@ -23,7 +23,7 @@ EmailSchema.statics = {
 		} else {
 			return this
 				.find({})
-				.sort({ 'address': 1 })
+				.sort({ 'updatedAt': -1 })
 				.exec(cb)
 		}
 	}
