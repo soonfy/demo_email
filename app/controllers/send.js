@@ -158,6 +158,7 @@ let send = function (num) {
             Email.findOne({_id: email._id}, function (err, result) {
               if(!err && result !== null){
                 result.status = 0
+                result.errorReason = error.response
                 result.updatedAt = Date.now()
                 result.save(function (err) {
                   if(err){
