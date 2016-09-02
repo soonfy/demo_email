@@ -109,7 +109,6 @@ exports.del = function (req, res) {
 							if (err) {
 								cb('remove email error')
 							}
-							cb(null)
 						})
 					Map
 						.remove({ emailId: id[i] }, function (err, email) {
