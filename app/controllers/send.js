@@ -76,7 +76,6 @@ let send = function (num) {
                   send(num)
                 }else{
                   article.status = 0
-                  article.updatedAt = Date.now()
                   article.save(function (err) {
                     if(err){
                       console.log(err)
@@ -159,6 +158,7 @@ let send = function (num) {
             Email.findOne({_id: email._id}, function (err, result) {
               if(!err && result !== null){
                 result.status = 0
+                result.updatedAt = Date.now()
                 result.save(function (err) {
                   if(err){
                     console.log(err)
@@ -166,7 +166,7 @@ let send = function (num) {
                 })
               }
             })
-            // send(1)
+            send(1)
           }
         }else{
           let articleId = article._id
