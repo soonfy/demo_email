@@ -204,7 +204,7 @@ let send = function (num) {
 // watcher(1)
 
 //发送邮件（新）
-// send(1)
+send(1)
 
 exports.sender = function () {
   // console.log('=> => => => => => => => =>')
