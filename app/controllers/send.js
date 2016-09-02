@@ -76,6 +76,7 @@ let send = function (num) {
                   send(num)
                 }else{
                   article.status = 0
+                  article.updatedAt = Date.now()
                   article.save(function (err) {
                     if(err){
                       console.log(err)
