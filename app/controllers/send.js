@@ -163,10 +163,10 @@ let send = function (num) {
                   if(err){
                     console.log(err)
                   }
+                  send(1)
                 })
               }
             })
-            send(1)
           }
         }else{
           let articleId = article._id
