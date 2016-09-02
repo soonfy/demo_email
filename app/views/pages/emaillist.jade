@@ -9,17 +9,19 @@ block content
 					.col-xs-5
 						input.form-control(type="email" name="address" value="" placeholder="请输入邮件地址")
 					.col-xs-4
+						button.btn.btn-primary(type="submit") 查找
 						.btn.btn-info
 							a(href="/email/insert") 添加
-						button.btn.btn-primary(type="submit") 查找
 		.row.col-xs-12
 			table.table.table-hover.table-border.list.track
 				thead
 					tr
-						th 
-						th 姓名
-						th 地址
-						th 操作
+						th
+						th.col-xs-1 状态码
+						th.col-xs-1 姓名
+						th.col-xs-3 地址
+						th.col-xs-4 状态
+						th.col-xs-1 操作
 				tbody
 					each item in emails
 						tr(class="item-id-#{item._id}")
@@ -27,8 +29,10 @@ block content
 							td
 								label.checkbox
 									input(type="checkbox" name="subBox")
+							td #{item.status}
 							td #{item.name}
 							td #{item.address}
+							td(title="#{item.errorReason}") #{item.errorReason}
 							td.op
 								.btn.btn-info.btn-sm
 									a(href="/email/update?_id=" + "#{item._id}" + "&name=" + "#{item.name}" + "&address=" + "#{item.address}") 修改

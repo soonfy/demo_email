@@ -8,6 +8,14 @@ var EmailSchema = new Schema({
 		index: true
 		},
 	name: String,					//名称
+	status: {
+		type: Number,				//邮箱状态，1是正常，0是错误
+		default: 1
+	},
+	errorReason: {
+		type: String,				//错误原因
+		default: '正确'
+	},
 	createdAt: Date,
 	updatedAt: Date
 })

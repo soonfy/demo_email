@@ -62,8 +62,8 @@ $(function () {
 		.click(function (e) {
 			var target = $(e.target)
 			var id = target.data('id')
-			target.next().attr('disabled', false)
-			target.attr('disabled', true)
+			target.attr('disabled', 'true')
+			target.next().attr('disabled', 'false')
 			$.ajax({
 				type: 'POST',
 				url: '/article/send',

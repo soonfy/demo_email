@@ -50,7 +50,7 @@ let send = function (num) {
 			})
     },
     function (article, emailIds, cb) {
-      Email.find({_id: {'$nin': emailIds}}, {}, {limit: num}, function (err, emails) {
+      Email.find({_id: {'$nin': emailIds}, status: 1}, {}, {limit: num}, function (err, emails) {
         if(err){
           trigger = 0
           console.log(err)
@@ -155,6 +155,16 @@ let send = function (num) {
             console.log(mailOptions.to)
             console.log(error.response);
             console.log('sending email exits error...')
+            Email.findOne({_id: email._id}, function (err, result) {
+              if(!err && result !== null){
+                result.status = 0
+                result.save(function (err) {
+                  if(err){
+                    console.log(err)
+                  }
+                })
+              }
+            })
             // send(1)
           }
         }else{
@@ -179,29 +189,6 @@ let send = function (num) {
     })
   })
 }
-
-// let watcher = function (num) {
-//   let rule = new schedule.RecurrenceRule()
-//   let times = []
-//   for(let i = 1; i < 60; i += 2){
-//     times.push(i)
-//   }
-//   rule.second = times
-//   let timer = schedule.scheduleJob(rule, function () {
-//     console.log('=>=>=>=>=>=>=>=>=>=>=>=>=>=>=>')
-//     console.log(new Date())
-//     console.log('watching...')
-//     console.log(trigger)  //1 sending, 2 sended, 3 error
-//     if(trigger === 0){
-//       trigger = num
-//       console.log('email sending...')
-//       send(num)
-//     }
-//   })
-// }
-
-// 每次发送邮件数量（老版本）
-// watcher(1)
 
 //发送邮件（新）
 send(1)
