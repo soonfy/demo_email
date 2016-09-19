@@ -134,7 +134,7 @@ let send = function (num) {
         }
       }
 
-      // console.log(mailOptions)
+      console.log(mailOptions)
       //send mail with defined transport object
       transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
