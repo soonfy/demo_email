@@ -116,7 +116,7 @@ let send = function (num) {
           from: '"newsletter" <newsletter@netranking.com.cn>', // sender address
           to: address, // list of receivers
           subject: title, // Subject line
-          text: content, // plaintext body
+          text: title, // plaintext body
           html: html, // html body
           attachments: [{
             filename: filename,
@@ -128,7 +128,7 @@ let send = function (num) {
           from: '"newsletter" <newsletter@netranking.com.cn>', // sender address
           to: address, // list of receivers
           subject: title, // Subject line
-          text: content, // plaintext body
+          text: title, // plaintext body
           html: html // html body
           // html: content
         }
