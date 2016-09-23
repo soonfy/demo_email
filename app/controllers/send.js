@@ -14,11 +14,11 @@ let send = function (num) {
     function (cb) {
       let timeout = Math.random() + 2;
       setTimeout(function() {
-        console.log('下次发送延迟', timeout, '分钟');
-        cb(null, null)
+        console.log('本次发送延迟', timeout, '分钟');
+        cb(null, timeout)
       }, 1000 * 60 * timeout);
     },
-    function (obj, cb) {
+    function (timeout, cb) {
       Article.findOne({status: 1}, {}, function (err, article) {
         if(err){
           trigger = 0
