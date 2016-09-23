@@ -34,7 +34,9 @@ let send = function (num) {
             cb(null, article)
           }else{
             trigger = -1
-            console.log('=> => => => => => => => =>')
+            console.log('================================================')
+            console.log('================================================')
+            console.log('================================================')
             console.log('now trigger is ', trigger)
             console.log('29 sending email...')
             console.log('articles all sended.')
@@ -91,7 +93,7 @@ let send = function (num) {
                       console.log(err)
                     }
                     trigger = 0
-                    console.log('=> => => => => => => => =>')
+                    console.log('================================================')
                     console.log('84 this article sended...')
                     send(num)
                   })
@@ -152,10 +154,12 @@ let send = function (num) {
           console.log(error)
           if(error.responseCode == 552){
             console.log('=> => => => => => => => =>')
+            console.log('=> => => => => => => => =>')
+            console.log('=> => => => => => => => =>')
             console.log('142 email quota exceeded...')
+            console.log('email will send tomorrow 0 am...')
             let rule = new schedule.RecurrenceRule()
             let timer = schedule.scheduleJob('0 0 0 */1 * *', function () {
-              console.log('email will send tomorrow 0 am...')
               send(1)
               timer.cancel()
             })
