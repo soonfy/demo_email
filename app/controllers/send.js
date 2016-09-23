@@ -12,6 +12,13 @@ let send = function (num) {
   console.log('start sending email, now trigger is ', trigger)
   async.waterfall([
     function (cb) {
+      let timeout = (Math.random() + 1) * 2;
+      setTimeout(function() {
+        console.log('下次发送延迟', timeout, '分钟');
+        cb(null, null)
+      }, 1000 * 60 * timeout);
+    },
+    function (obj, cb) {
       Article.findOne({status: 1}, {}, function (err, article) {
         if(err){
           trigger = 0
