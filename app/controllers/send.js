@@ -15,7 +15,7 @@ let send = function (num) {
   console.log('start sending email, now trigger is ', trigger)
   async.waterfall([
     function (cb) {
-      let timeout = Math.random() + 2;
+      let timeout = Math.random() + 1;
       setTimeout(function() {
         console.log('本次发送延迟', timeout, '分钟');
         cb(null, timeout)
