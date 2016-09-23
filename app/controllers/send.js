@@ -9,6 +9,9 @@ let schedule = require('node-schedule')
 let trigger
 
 let send = function (num) {
+  console.log('=> => => => => => => => => => => => => => => => => =>')
+  console.log('=> => => => => => => => => => => => => => => => => =>')
+  console.log('=> => => => => => => => => => => => => => => => => =>')
   console.log('start sending email, now trigger is ', trigger)
   async.waterfall([
     function (cb) {
@@ -141,7 +144,7 @@ let send = function (num) {
         }
       }
 
-      console.log(mailOptions)
+      // console.log(mailOptions)
       //send mail with defined transport object
       transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
@@ -191,6 +194,7 @@ let send = function (num) {
             trigger--
             // console.log('=> => => => => => => => =>')
             // console.log('168 sending email...')
+            console.log('本次发送成功。');
             send(1)
           })
         }
