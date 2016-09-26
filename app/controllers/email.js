@@ -134,7 +134,7 @@ exports.del = function (req, res) {
 
 exports.download = function (req, res) {
   let filename = '错误邮箱列表.csv'
-  let head = '用户名,邮件地址,错误原因\n'
+  let head = '用户名,邮件地址\n'
   head = iconv_lite.encode(head, 'gbk')
   let filepath = path.join(__dirname, 'data', filename)
   fs.writeFileSync(filepath, head)
