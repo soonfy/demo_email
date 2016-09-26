@@ -1,49 +1,49 @@
 extends ../layout
 
 block content
-	.container
-		.row.col-xs-12
-			form.form-horizontal(method="get", action="/article/search")
-				.form-group
-					.col-xs-2
-					.col-xs-5
-						input.form-control.resource1(type="text" name="title" value="" placeholder="请输入杂志标题")
-					.col-xs-4
-						button.btn.btn-primary.align(type="submit") 查找
-		.row.col-xs-12
-			table.table.table-hover.table-border.list.track
-				thead
-					tr
-						th
-						th.col-xs-4 杂志标题
-						th.col-xs-4 杂志内容
-						th.col-xs-4 附件名称
-						th.col-xs-2 杂志发送状态
-						th.col-xs-2 操作
-				tbody
-					each item in articles
-						tr(class="item-id-#{item._id}")
-							input(type="hidden" name="url" value=item.url)
-							td
-								label.checkbox
-									input(type="checkbox" name="subBox")
-							td(title="#{item.title}") #{item.title}
-							td(title="#{item.content}") #{item.content}
-							td(title="#{item.filename}") #{item.filename}
-							td
-								span #{item.count}
-								span /
-								span #{item.len}
-							td.op
-								if item.status === 0
-									.btn.btn-primary.btn-sm.send(data-id="#{item._id}") 发送
-									.btn.btn-success.btn-sm.pause(disabled="true" data-id="#{item._id}") 暂停
-								else if item.status === 1
-									.btn.btn-primary.btn-sm.send(disabled="true" data-id="#{item._id}") 发送
-									.btn.btn-success.btn-sm.pause(data-id="#{item._id}") 暂停
-								.btn.btn-info.btn-sm
-										a(href="/article/update?_id=" + "#{item._id}") 修改
-								.btn.btn-danger.btn-sm.del(data-id="#{item._id}") 删除
+  .container
+    .row.col-xs-12
+      form.form-horizontal(method="get", action="/article/search")
+        .form-group
+          .col-xs-2
+          .col-xs-5
+            input.form-control.resource1(type="text" name="title" value="" placeholder="请输入杂志标题")
+          .col-xs-4
+            button.btn.btn-primary.align(type="submit") 查找
+    .row.col-xs-12
+      table.table.table-hover.table-border.list.track
+        thead
+          tr
+            th
+            th.col-xs-4 杂志标题
+            th.col-xs-4 杂志内容
+            th.col-xs-4 附件名称
+            th.col-xs-2 杂志发送状态
+            th.col-xs-2 操作
+        tbody
+          each item in articles
+            tr(class="item-id-#{item._id}")
+              input(type="hidden" name="url" value=item.url)
+              td
+                label.checkbox
+                  input(type="checkbox" name="subBox")
+              td(title="#{item.title}") #{item.title}
+              td(title="#{item.content}") #{item.content}
+              td(title="#{item.filename}") #{item.filename}
+              td
+                span #{item.count}
+                span /
+                span #{item.len}
+              td.op
+                if item.status === 0
+                  .btn.btn-primary.btn-sm.send(data-id="#{item._id}") 发送
+                  .btn.btn-success.btn-sm.pause(disabled="true" data-id="#{item._id}") 暂停
+                else if item.status === 1
+                  .btn.btn-primary.btn-sm.send(disabled="true" data-id="#{item._id}") 发送
+                  .btn.btn-success.btn-sm.pause(data-id="#{item._id}") 暂停
+                .btn.btn-info.btn-sm
+                    a(href="/article/update?_id=" + "#{item._id}") 修改
+                .btn.btn-danger.btn-sm.del(data-id="#{item._id}") 删除
 
-	script(src="/js/article.js")
-	script(src="/js/export.js")
+  script(src="/js/article.js")
+  script(src="/js/export.js")

@@ -21,7 +21,7 @@ app.set('view engine', 'jade')
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
-	extended: true
+  extended: true
 }));
 app.use(cookieParser())
 
@@ -30,22 +30,22 @@ app.use(express.static(path.join(__dirname, 'node_modules')))
 app.locals.moment = require('moment')
 
 if ('development' === app.get('env')) {
-	app.set('showStackError', true)
-	app.use(logger('dev'));
-	app.locals.pretty = true
-	// mongoose.set('debug', true)
+  app.set('showStackError', true)
+  app.use(logger('dev'));
+  app.locals.pretty = true
+  // mongoose.set('debug', true)
 }
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-		let attachmentId = req.body.attachmentId
-		let filepath
-		if(attachmentId){
-			filepath = path.join(__dirname, '/app/controllers/articles/', attachmentId)
-			fs.mkdirSync(filepath)
-		}else{
-			filepath = path.join(__dirname, '/app/controllers/emails/')
-		}
+    let attachmentId = req.body.attachmentId
+    let filepath
+    if (attachmentId) {
+      filepath = path.join(__dirname, '/app/controllers/articles/', attachmentId)
+      fs.mkdirSync(filepath)
+    } else {
+      filepath = path.join(__dirname, '/app/controllers/emails/')
+    }
     cb(null, filepath)
   },
   filename: function (req, file, cb) {
@@ -59,4 +59,4 @@ require('./config/routes')(app)
 
 app.listen(port)
 
-console.log('服务器开始运行 '+ port);
+console.log('服务器开始运行 ' + port);

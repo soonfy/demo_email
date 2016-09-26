@@ -16,23 +16,23 @@ let send = function (num) {
   async.waterfall([
     function (cb) {
       let timeout = Math.random() + 1;
-      setTimeout(function() {
+      setTimeout(function () {
         console.log('本次发送延迟', timeout, '分钟');
         cb(null, timeout)
       }, 1000 * 60 * timeout);
     },
     function (timeout, cb) {
-      Article.findOne({status: 1}, {}, function (err, article) {
-        if(err){
+      Article.findOne({ status: 1 }, {}, function (err, article) {
+        if (err) {
           trigger = 0
           console.log(err)
           // console.log('=> => => => => => => => =>')
           // console.log('20 sending email...')
           send(num)
-        }else {
+        } else {
           if (article !== null) {
             cb(null, article)
-          }else{
+          } else {
             trigger = -1
             console.log('================================================')
             console.log('================================================')
@@ -42,54 +42,54 @@ let send = function (num) {
             console.log('articles all sended.')
           }
         }
-			})
+      })
     },
     function (article, cb) {
-      AEmap.find({articleId: article._id}, {}, function (err, maps) {
-        if(err){
+      AEmap.find({ articleId: article._id }, {}, function (err, maps) {
+        if (err) {
           trigger = 0
           console.log(err)
           // console.log('=> => => => => => => => =>')
           // console.log('40 sending email...')
           send(num)
-        }else{
+        } else {
           let emailIds = []
           maps.map(function (data) {
             emailIds.push(data.emailId)
           })
           cb(null, article, emailIds)
         }
-			})
+      })
     },
     function (article, emailIds, cb) {
-      Email.find({_id: {'$nin': emailIds}, status: 1}, {}, {limit: num}, function (err, emails) {
-        if(err){
+      Email.find({ _id: { '$nin': emailIds }, status: 1 }, {}, { limit: num }, function (err, emails) {
+        if (err) {
           trigger = 0
           console.log(err)
           // console.log('=> => => => => => => => =>')
           // console.log('57 sending email...')
           send(num)
-        }else {
+        } else {
           if (emails.length > 0) {
             cb(null, article, emails)
-          }else{
-            Article.findOne({_id: article._id}, {}, function (err, article) {
+          } else {
+            Article.findOne({ _id: article._id }, {}, function (err, article) {
               if (err) {
                 trigger = 0
                 console.log(err)
                 // console.log('=> => => => => => => => =>')
                 // console.log('68 sending email...')
                 send(num)
-              }else {
-                if(article === null){
+              } else {
+                if (article === null) {
                   // console.log('exits error.')
                   // console.log('=> => => => => => => => =>')
                   // console.log('74 sending email...')
                   send(num)
-                }else{
+                } else {
                   article.status = 0
                   article.save(function (err) {
-                    if(err){
+                    if (err) {
                       console.log(err)
                     }
                     trigger = 0
@@ -102,7 +102,7 @@ let send = function (num) {
             })
           }
         }
-			})
+      })
     }
   ], function (err, article, emails) {
     trigger = emails.length
@@ -122,7 +122,7 @@ let send = function (num) {
       let html = '<p>' + content.split('\r\n').join('</p><p>') + '</p>'
       let mailOptions
 
-      if(filename && path){
+      if (filename && path) {
         // setup e-mail data with unicode symbols
         mailOptions = {
           from: '"newsletter" <newsletter@netranking.com.cn>', // sender address
@@ -135,7 +135,7 @@ let send = function (num) {
             path: path
           }]
         }
-      }else{
+      } else {
         mailOptions = {
           from: '"newsletter" <newsletter@netranking.com.cn>', // sender address
           to: address, // list of receivers
@@ -152,7 +152,7 @@ let send = function (num) {
         if (error) {
           trigger--
           console.log(error)
-          if(error.responseCode == 552){
+          if (error.responseCode == 552) {
             console.log('=> => => => => => => => =>')
             console.log('=> => => => => => => => =>')
             console.log('=> => => => => => => => =>')
@@ -163,19 +163,19 @@ let send = function (num) {
               send(1)
               timer.cancel()
             })
-          }else{
+          } else {
             console.log('=> => => => => => => => =>')
             console.log('sending email exits error...')
             console.log(mailOptions.to)
             console.log(error.response);
             console.log('sending email exits error...')
-            Email.findOne({_id: email._id}, function (err, result) {
-              if(!err && result !== null){
+            Email.findOne({ _id: email._id }, function (err, result) {
+              if (!err && result !== null) {
                 result.status = 0
                 result.errorReason = error.response
                 result.updatedAt = Date.now()
                 result.save(function (err) {
-                  if(err){
+                  if (err) {
                     console.log(err)
                   }
                   send(1)
@@ -183,7 +183,7 @@ let send = function (num) {
               }
             })
           }
-        }else{
+        } else {
           let articleId = article._id
           let emailId = email._id
           let _map = new AEmap({
@@ -192,7 +192,7 @@ let send = function (num) {
             sendTime: Date.now()
           })
           _map.save(function () {
-            if(err){
+            if (err) {
               console.log(err)
             }
             trigger--
@@ -215,14 +215,14 @@ exports.sender = function () {
   // console.log('205 start send email...')
   console.log(trigger)
   console.log(typeof trigger)
-  if(trigger === -1 || (typeof trigger === 'undefined')){
+  if (trigger === -1 || (typeof trigger === 'undefined')) {
     //articles all sended
     send(1)
-  }else if(trigger >= 0){
+  } else if (trigger >= 0) {
     //articles ending
     console.log('211 email sending...')
     console.log('now trigger is ', trigger)
-  }else{
+  } else {
     console.log('214 error exits.');
     console.log('now trigger is ', trigger)
   }
