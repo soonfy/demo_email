@@ -140,15 +140,8 @@ exports.download = function (req, res) {
   fs.writeFileSync(filepath, head)
   Email.find({ status: 0 }, function (err, datas) {
     datas.map(data => {
-      let {name, address, errorReason} = data
-      let metas = [name, address, errorReason]
-      metas.map(meta => {
-        meta= meta.replace(/"/g, '""')
-        if(meta.indexOf(',') + meta.indexOf('\n') + meta.indexOf('\r\n') > -3){
-          meta = '"' + meta + '"'
-        }
-        return meta
-      })
+      let {name, address} = data
+      let metas = [name, address]
       let line = metas.join(',') + '\n'
       line = iconv_lite.encode(line, 'gbk')
       fs.appendFileSync(path.join(__dirname, 'data', filename), line)
