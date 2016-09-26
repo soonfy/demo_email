@@ -142,6 +142,13 @@ exports.download = function (req, res) {
     datas.map(data => {
       let {name, address, errorReason} = data
       let metas = [name, address, errorReason]
+      metas.map(meta => {
+        meta= meta.replace(/"/g, '""')
+        if(meta.indexOf(',') + meta.indexOf('\n') + meta.indexOf('\r\n') > -3){
+          meta = '"' + meta + '"'
+        }
+        return meta
+      })
       let line = metas.join(',') + '\n'
       line = iconv_lite.encode(line, 'gbk')
       fs.appendFileSync(path.join(__dirname, 'data', filename), line)
