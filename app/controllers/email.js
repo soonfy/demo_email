@@ -20,7 +20,7 @@ exports.search = function (req, res) {
 }
 
 exports.list = function (req, res) {
-  var limit = 500
+  var limit = 100
   var page = req.query.page || 1
   page = parseInt(page)
   Email.count(function (err, len) {
