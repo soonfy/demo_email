@@ -16,7 +16,6 @@ let send = function (num) {
   async.waterfall([
     function (cb) {
       let timeout = Math.random() + 1;
-      timeout = 0;
       setTimeout(function () {
         console.log('本次发送延迟', timeout, '分钟');
         cb(null, timeout)
