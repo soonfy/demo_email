@@ -16,6 +16,7 @@ let send = function (num) {
   async.waterfall([
     function (cb) {
       let timeout = Math.random() + 1;
+      timeout = 0;
       setTimeout(function () {
         console.log('本次发送延迟', timeout, '分钟');
         cb(null, timeout)
@@ -115,7 +116,8 @@ let send = function (num) {
         "auth": {
           "user": 'newsletter@netranking.com.cn', // user name
           "pass": 'Abc123456789'         // password
-        }
+        },
+        "logger": true
       })
       let {title, content, filename, path} = article
       let address = email.address
@@ -184,6 +186,21 @@ let send = function (num) {
             })
           }
         } else {
+          console.log('=> => => => => => => => =>')
+          console.log('sending email success...')
+          console.log(mailOptions.to)
+          console.log(info)
+          console.log(info.response)
+          Email.findOne({ _id: email._id }, function (err, result) {
+            if (!err && result !== null) {
+              result.errorReason = info.response
+              result.save(function (err) {
+                if (err) {
+                  console.log(err)
+                }
+              })
+            }
+          })
           let articleId = article._id
           let emailId = email._id
           let _map = new AEmap({

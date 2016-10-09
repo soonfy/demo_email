@@ -39,5 +39,42 @@ block content
                 .btn.btn-info.btn-sm
                   a(href="/email/update?_id=" + "#{item._id}" + "&name=" + "#{item.name}" + "&address=" + "#{item.address}") 修改
                 .btn.btn-danger.btn-sm.del(data-id="#{item._id}") 删除
+
+  if pages > 1
+    .container
+      .row.col-xs-4
+      .row.col-xs-4
+        ul.pagination
+          if page === 1
+            li.disabled
+              a 首页
+            li.active
+              a #{page}
+            li
+              a(href="/email/list?page=2") 2
+            li
+              a(href="/email/list?page=" + "#{pages}") 尾页
+          else if page === pages
+            li
+              a(href="/email/list?page=1") 首页
+            li
+              a(href="/email/list?page=" + "#{page - 1}") #{page - 1}
+            li.active
+              a #{page}
+            li.disabled
+              a 尾页
+          else
+            li
+              a(href="/email/list?page=1") 首页
+            li
+              a(href="/email/list?page=" + "#{page - 1}") #{page - 1}
+            li.active
+              a #{page}
+            li
+              a(href="/email/list?page=" + "#{page + 1}") #{page + 1}
+            li
+              a(href="/email/list?page=" + "#{pages}") 尾页
+      .row.col-xs-4
+
   script(src="/js/email.js")
   

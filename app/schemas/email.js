@@ -22,18 +22,25 @@ var EmailSchema = new Schema({
 
 
 EmailSchema.statics = {
-	findByAddress: function (address, cb) {
+	findByAddress: function (address, skip, limit, cb) {
 		if (address) {
 			return this
-				.find({ 'address': address })
-				.sort({ 'address': 1 })
+				.findOne({ 'address': address })
 				.exec(cb)
 		} else {
 			return this
 				.find({})
 				.sort({ 'updatedAt': -1 })
+				.skip(skip)
+				.limit(limit)
 				.exec(cb)
 		}
+	},
+	count: function (cb) {
+		return this
+			.find({})
+			.count()
+			.exec(cb)
 	}
 }
 

@@ -20,16 +20,29 @@ exports.search = function (req, res) {
 }
 
 exports.list = function (req, res) {
-  Email
-    .findByAddress(null, function (err, emails) {
-      if (err) {
-        console.log(err);
-      }
-      res.render('emaillist', {
-        title: '邮件列表',
-        emails: emails
+  var limit = 500
+  var page = req.query.page || 1
+  page = parseInt(page)
+  Email.count(function (err, len) {
+    var pages = Math.ceil(len / limit)
+    // console.log(page, pages);
+    if(page > pages){
+      page = 1
+    }
+    var skip = (page - 1) * limit
+    Email
+      .findByAddress(null, skip, limit, function (err, emails) {
+        if (err) {
+          console.log(err);
+        }
+        res.render('emaillist', {
+          title: '邮件列表',
+          emails: emails,
+          page: page,
+          pages: pages
+        })
       })
-    })
+  })
 }
 
 exports.getInsert = function (req, res) {
