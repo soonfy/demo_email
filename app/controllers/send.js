@@ -114,7 +114,7 @@ let send = function (num) {
         "secureConnection": true, // use SSL
         "auth": {
           "user": 'newsletter@netranking.com.cn', // user name
-          "pass": 'Abc123456789'         // password
+          "pass": 'Qylznews2016'         // password
         },
         "logger": true
       })
