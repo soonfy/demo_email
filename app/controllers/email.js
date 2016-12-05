@@ -8,13 +8,13 @@ let iconv_lite = require('iconv-lite')
 exports.search = function (req, res) {
   var address = req.query.address || null
   Email
-    .findByAddress(address, function (err, emails) {
+    .findByAddress(address, 0, 0, function (err, emails) {
       if (err) {
         console.log(err);
       }
       res.render('emaillist', {
         title: '邮件列表',
-        emails: emails
+        emails: [emails]
       })
     })
 }
