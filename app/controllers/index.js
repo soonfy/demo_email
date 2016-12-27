@@ -99,39 +99,40 @@ exports.upload = function (req, res) {
           if(arr.length === 1){
             arr[1] = arr[0];
           }
-          console.log(arr);
-          let name = arr[0].trim();
-          let address = arr[1].trim().replace(/[;"；]/g, '').replace(/-/g, '_')
-          if (!adds.includes(address) && address.includes('@')) {
-            adds.push(address)
-            let obj = {
-              name: name,
-              address: address
+          if(arr.length === 2){
+            let name = arr[0].trim();
+            let address = arr[1].trim().replace(/[;"；]/g, '').replace(/-/g, '_')
+            if (!adds.includes(address) && address.includes('@')) {
+              adds.push(address)
+              let obj = {
+                name: name,
+                address: address
+              }
+              results.push(obj)
             }
-            results.push(obj)
           }
         })
       }
     }
     console.log(results);
-    // for (let email of results) {
-    //   Email.findOne({ address: email.address }, {}, function (err, data) {
-    //     if (!err && data === null) {
-    //       let _email = new Email({
-    //         name: email.name,
-    //         address: email.address,
-    //         createdAt: Date.now(),
-    //         updatedAt: Date.now()
-    //       })
-    //       _email.save(function (err) {
-    //         if (err) {
-    //           console.log(err)
-    //         }
-    //         console.log('email list insert...')
-    //       })
-    //     }
-    //   })
-    // }
+    for (let email of results) {
+      Email.findOne({ address: email.address }, {}, function (err, data) {
+        if (!err && data === null) {
+          let _email = new Email({
+            name: email.name,
+            address: email.address,
+            createdAt: Date.now(),
+            updatedAt: Date.now()
+          })
+          _email.save(function (err) {
+            if (err) {
+              console.log(err)
+            }
+            console.log('email list insert...')
+          })
+        }
+      })
+    }
   }
   res.redirect('/')
 }
