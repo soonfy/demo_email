@@ -1,4 +1,4 @@
 node_modules/
 app/controllers/articles/*/
-app/controllers/emails/*.csv
-app/controllers/data/*.csv
+app/controllers/emails/
+app/controllers/data/
