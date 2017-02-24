@@ -109,6 +109,12 @@ let send = function (num) {
     emails.map(function (email) {
       // create reusable transporter object using the default SMTP transport
       
+      /**
+       *
+       *  import auth
+       *
+       */
+
       let {title, content, filename, path} = article
       let address = email.address
       let html = '<p>' + content.split('\r\n').join('</p><p>') + '</p>'
