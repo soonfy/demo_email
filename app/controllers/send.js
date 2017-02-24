@@ -108,16 +108,7 @@ let send = function (num) {
     trigger = emails.length
     emails.map(function (email) {
       // create reusable transporter object using the default SMTP transport
-      let transporter = nodemailer.createTransport({
-        "host": "smtpdm.aliyun.com",
-        "port": 25,
-        "secureConnection": true, // use SSL
-        "auth": {
-          "user": 'newsletter@netranking.com.cn', // user name
-          "pass": 'Qylznews2016'         // password
-        },
-        "logger": true
-      })
+      
       let {title, content, filename, path} = article
       let address = email.address
       let html = '<p>' + content.split('\r\n').join('</p><p>') + '</p>'
