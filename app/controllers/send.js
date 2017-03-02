@@ -6,6 +6,15 @@ let nodemailer = require('nodemailer')
 
 let schedule = require('node-schedule')
 
+let argv = process.argv.slice(2);
+
+let pass;
+if (argv.length > 0) {
+  pass = argv[0];
+} else {
+  throw new Error('请输入密码。');
+}
+
 let trigger
 
 let send = function (num) {
@@ -114,7 +123,7 @@ let send = function (num) {
         "secureConnection": true, // use SSL
         "auth": {
           "user": 'newsletter@netranking.com.cn', // user name
-          "pass": 'Qylznews2016'         // password
+          "pass": pass         // password
         },
         "logger": true
       })

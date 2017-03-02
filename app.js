@@ -52,11 +52,13 @@ var storage = multer.diskStorage({
     cb(null, file.originalname)
   }
 })
-var upload = multer({ storage: storage }).any()
+var upload = multer({
+  storage: storage
+}).any()
 app.use(upload)
 
 require('./config/routes')(app)
 
-app.listen(port)
-
-console.log('服务器开始运行 ' + port);
+app.listen(port, () => {
+  console.log('服务器开始运行' + port);
+})
