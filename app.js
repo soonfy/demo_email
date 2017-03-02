@@ -4,15 +4,12 @@ var logger = require('morgan');
 var mongoose = require('mongoose')
 var cookieParser = require('cookie-parser')
 var port = 3041
-// var hostname = '127.0.0.1'
 var app = express()
 var bodyParser = require('body-parser');
 var multer = require('multer')
 var fs = require('fs')
 
 var dburl = 'mongodb://localhost/email'
-// var dburl = 'mongodb://soonfy:163@localhost:27017/email'
-// mongoose.Promise = global.Promise	//mongoose use promise
 
 mongoose.connect(dburl)
 
