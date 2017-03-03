@@ -5,7 +5,8 @@ var ObjectId = Schema.Types.ObjectId
 var EmailSchema = new Schema({
 	address: {						//邮件地址
 		type: String,
-		index: true
+		index: true,
+		unique: true
 		},
 	name: String,					//名称
 	status: {
