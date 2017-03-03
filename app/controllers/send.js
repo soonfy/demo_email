@@ -9,10 +9,10 @@ let schedule = require('node-schedule')
 let argv = process.argv.slice(2);
 
 let pass;
-if (argv.length > 0) {
+if (argv.length > 1) {
   pass = argv[0];
 } else {
-  throw new Error('请输入密码。');
+  throw new Error('请输入密码和数据库地址。');
 }
 
 let trigger

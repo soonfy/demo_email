@@ -9,7 +9,14 @@ var bodyParser = require('body-parser');
 var multer = require('multer')
 var fs = require('fs')
 
-var dburl = 'mongodb://localhost/email'
+let argv = process.argv.slice(2);
+
+let dburl;
+if (argv.length > 1) {
+  dburl = argv[1];
+} else {
+  throw new Error('请输入密码和数据库地址。');
+}
 
 mongoose.connect(dburl)
 
